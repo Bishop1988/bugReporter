@@ -1,52 +1,62 @@
 🛠 Installation
 
 1. Clone and Install Dependencies
-   bash git clone https://github.com/Bishop1988/bugReporter.git
-   cd bug-reporter
+    - git clone https://github.com/Bishop1988/bugReporter.git
+    - cd bug-reporter
 
 # Install PHP dependencies
 
-composer install
+-   composer install
 
 # Install Node.js dependencies
 
-npm install 2. Environment Setup
-bash# Copy environment file
-cp .env.example .env
+-   npm install
+
+2. Environment Setup
+
+Copy environment file
+
+-   cp .env.example .env
 
 # Generate application key
 
-php artisan key:generate 3. Database Setup
-bash# Create SQLite database
-touch database/database.sqlite
+-   php artisan key:generate
+
+3. Database Setup
+
+Create SQLite database
+
+-   touch database/database.sqlite
 
 # Run migrations
 
-php artisan migrate
+-   php artisan migrate
 
 # Seed test user for authentication
 
-php artisan db:seed --class=DatabaseSeeder
-Test User Credentials:
+-   php artisan db:seed --class=DatabaseSeeder
+    Test User Credentials:
 
 Email: test@example.com
 Password: password
 
 🏃‍♂️ Running the Application
 Backend (Laravel API)
-bash# Start Laravel development server
-php artisan serve
-Server will be available at: http://localhost:8000
-Frontend (React with Vite)
-bash# Start Vite development server (in new terminal)
-npm run dev
-Vite server runs at: http://localhost:5173 (but use Laravel URL for the actual app)
-Access the Application
+Start Laravel development server
+
+-   php artisan serve
+    Server will be available at: http://localhost:8000
+    Frontend (React with Vite)
+    Start Vite development server (in new terminal)
+-   npm run dev
+    Vite server runs at: http://localhost:5173 (but use Laravel URL for the actual app)
+    Access the Application
 
 Open your browser to: http://localhost:8000
 You'll be redirected to the login page
-Login with: test@example.com / password
-You'll be redirected to the dashboard with the bug report form
+
+-   Login with: test@example.com / password
+    You'll be redirected to the dashboard with the bug report form
 
 🧪 Running Tests
 Cypress (End-to-End Tests)
