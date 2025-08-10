@@ -68,6 +68,7 @@ npx cypress run
 npx cypress open
 Cypress Test Coverage:
 
+```
 ✅ Form renders correctly
 ✅ Validation prevents empty title submission
 ✅ Valid data submission works
@@ -77,6 +78,7 @@ Cypress Test Coverage:
 ✅ Form resets after successful submission
 ✅ Handles slow API responses
 ✅ Handles API failures
+```
 
 React Testing Library (Unit/Integration Tests)
 bash# Run all RTL tests
@@ -95,6 +97,7 @@ npm run test:coverage
 npm test BugReportForm.test.jsx
 RTL Test Coverage:
 
+```
 ✅ Component renders with all fields
 ✅ Client-side validation prevents empty submissions
 ✅ Form submission with valid data
@@ -104,6 +107,7 @@ RTL Test Coverage:
 ✅ Loading states during submission
 ✅ Error clearing when user types
 ✅ General API error handling
+```
 
 Run All Tests
 bash# Run both test suites
