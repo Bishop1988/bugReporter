@@ -28,7 +28,7 @@ describe("Bug Report Form", () => {
         cy.get('[data-cy="title-error"]').should("be.visible");
         cy.get('[data-cy="title-error"]').should(
             "contain",
-            "title field is required"
+            "Title is required"
         );
     });
 

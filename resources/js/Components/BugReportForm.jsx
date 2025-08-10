@@ -32,6 +32,17 @@ export default function BugReportForm() {
         setErrors({});
         setSuccessMessage("");
 
+        const newErrors = {};
+        if (!formData.title.trim()) {
+            newErrors.title = ["Title is required."];
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             await axios.post("/api/bug-reports", formData, {
                 headers: {

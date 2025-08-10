@@ -1,62 +1,224 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🛠 Installation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. Clone and Install Dependencies
+   bash git clone https://github.com/Bishop1988/bugReporter.git
+   cd bug-reporter
 
-## About Laravel
+# Install PHP dependencies
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+composer install
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Install Node.js dependencies
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+npm install 2. Environment Setup
+bash# Copy environment file
+cp .env.example .env
 
-## Learning Laravel
+# Generate application key
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+php artisan key:generate 3. Database Setup
+bash# Create SQLite database
+touch database/database.sqlite
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+# Run migrations
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+php artisan migrate
 
-## Laravel Sponsors
+# Seed test user for authentication
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+php artisan db:seed --class=DatabaseSeeder
+Test User Credentials:
 
-### Premium Partners
+Email: test@example.com
+Password: password
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+🏃‍♂️ Running the Application
+Backend (Laravel API)
+bash# Start Laravel development server
+php artisan serve
+Server will be available at: http://localhost:8000
+Frontend (React with Vite)
+bash# Start Vite development server (in new terminal)
+npm run dev
+Vite server runs at: http://localhost:5173 (but use Laravel URL for the actual app)
+Access the Application
 
-## Contributing
+Open your browser to: http://localhost:8000
+You'll be redirected to the login page
+Login with: test@example.com / password
+You'll be redirected to the dashboard with the bug report form
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+🧪 Running Tests
+Cypress (End-to-End Tests)
+bash# Run Cypress tests in headless mode
+npx cypress run
 
-## Code of Conduct
+# Open Cypress GUI for interactive testing
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+npx cypress open
+Cypress Test Coverage:
 
-## Security Vulnerabilities
+✅ Form renders correctly
+✅ Validation prevents empty title submission
+✅ Valid data submission works
+✅ Success message displays
+✅ Backend validation errors display
+✅ Severity defaults to "Medium"
+✅ Form resets after successful submission
+✅ Handles slow API responses
+✅ Handles API failures
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+React Testing Library (Unit/Integration Tests)
+bash# Run all RTL tests
+npm test
 
-## License
+# Run tests in watch mode
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# bugReporter
+npm run test:watch
+
+# Run with coverage report
+
+npm run test:coverage
+
+# Run specific test file
+
+npm test BugReportForm.test.jsx
+RTL Test Coverage:
+
+✅ Component renders with all fields
+✅ Client-side validation prevents empty submissions
+✅ Form submission with valid data
+✅ Success message handling
+✅ Backend validation error display
+✅ Form reset functionality
+✅ Loading states during submission
+✅ Error clearing when user types
+✅ General API error handling
+
+Run All Tests
+bash# Run both test suites
+npm test && npx cypress run
+📁 Project Structure
+bug-reporter/
+├── app/
+│ ├── Http/Controllers/Api/
+│ │ └── BugReportController.php # API endpoint for bug reports
+│ └── Models/
+│ └── BugReport.php # Eloquent model
+├── resources/js/
+│ ├── Components/
+│ │ └── BugReportForm.jsx # Main React component
+│ ├── Pages/
+│ │ └── Dashboard.jsx # Dashboard page
+│ └── **tests**/
+│ └── BugReportForm.test.jsx # RTL tests
+├── database/
+│ ├── migrations/ # Database schema
+│ └── database.sqlite # SQLite database file
+├── cypress/
+│ └── e2e/
+│ └── bug-report.cy.js # Cypress E2E tests
+├── routes/
+│ ├── api.php # API routes
+│ └── web.php # Web routes
+└── README.md
+
+🔧 API Endpoints
+POST /api/bug-reports
+Create a new bug report.
+
+Request Body:
+json{
+"title": "Bug title (required, max 100 chars)",
+"description": "Optional description",
+"severity": "low|medium|high (defaults to medium)"
+}
+
+Success Response (201):
+json{
+"message": "Bug reported successfully!",
+"bug_report": {
+"id": 1,
+"title": "Bug title",
+"description": "Description",
+"severity": "medium",
+"created_at": "2025-01-01T12:00:00.000000Z"
+}
+}
+Validation Error Response (422):
+json{
+"message": "The given data was invalid.",
+"errors": {
+"title": ["The title field is required."]
+}
+}
+🧪 Testing Strategy
+Two-Layer Testing Approach
+
+React Testing Library (RTL) - Fast unit/integration tests
+
+Tests component logic and user interactions
+Mocks API calls for predictable testing
+Focuses on accessibility and user-centric testing
+
+Cypress - Full end-to-end tests
+
+Tests complete user workflows
+Real browser environment with actual API calls
+Network interception for edge case testing
+
+📝 Implementation Notes
+Architecture Decisions
+
+SQLite Database: Chosen for simplicity and portability - easy to set up without external dependencies
+Laravel Breeze: Provides robust authentication scaffolding with React integration
+Client + Server Validation: Client-side validation for UX, server-side for security
+Inertia.js: Enables seamless Laravel-React integration with server-side routing
+
+Key Features
+
+Form Validation: Both client-side (immediate feedback) and server-side (security)
+Error Handling: Graceful handling of network errors, validation errors, and loading states
+Accessibility: Form uses proper labels, ARIA attributes, and semantic HTML
+Responsive Design: Mobile-friendly interface with Tailwind CSS
+
+Testing Considerations
+
+Authentication: Tests use a seeded test user for consistent authentication
+API Mocking: RTL tests mock axios calls; Cypress uses real API with interception for edge cases
+Data Attributes: Components include data-cy attributes specifically for testing
+Loading States: Tests verify loading indicators and disabled states during submissions
+
+🚀 Production Considerations
+For a production deployment, consider:
+
+Database: Switch from SQLite to PostgreSQL/MySQL for better concurrent access
+Environment Variables: Secure API keys and database credentials
+Rate Limiting: Add API rate limiting for the bug report endpoint
+CSRF Protection: Ensure CSRF tokens are properly handled in production
+Error Logging: Implement proper error logging for debugging
+Caching: Add Redis caching for better performance
+Queue System: Handle email notifications via queued jobs
+
+🛠 Development Commands
+bash# Clear Laravel caches
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+
+# Reset database
+
+php artisan migrate:fresh --seed
+
+# Build for production
+
+npm run build
+
+# Check Laravel routes
+
+php artisan route:list
+
+# Run PHP linting
+
+composer install --dev
+./vendor/bin/phpstan analyze
