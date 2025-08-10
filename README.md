@@ -144,6 +144,7 @@ bug-reporter/
 POST /api/bug-reports
 Create a new bug report.
 
+```
 Request Body:
 json{
 "title": "Bug title (required, max 100 chars)",
@@ -169,6 +170,8 @@ json{
 "title": ["The title field is required."]
 }
 }
+```
+
 🧪 Testing Strategy
 Two-Layer Testing Approach
 
