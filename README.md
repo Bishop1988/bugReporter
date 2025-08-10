@@ -108,6 +108,8 @@ RTL Test Coverage:
 Run All Tests
 bash# Run both test suites
 npm test && npx cypress run
+
+```
 📁 Project Structure
 bug-reporter/
 ├── app/
@@ -132,6 +134,7 @@ bug-reporter/
 │ ├── api.php # API routes
 │ └── web.php # Web routes
 └── README.md
+```
 
 🔧 API Endpoints
 POST /api/bug-reports
