@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/user-event";
 import axios from "axios";
@@ -8,9 +8,12 @@ import BugReportForm from "@/Components/BugReportForm";
 jest.mock("axios");
 const mockedAxios = axios;
 
+let user;
+
 describe("BugReportForm", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        user = userEvent.setup();
     });
 
     test("renders form with all required fields", () => {
@@ -35,7 +38,6 @@ describe("BugReportForm", () => {
     });
 
     test("prevents form submission when title is empty", async () => {
-        const user = userEvent.setup();
         render(<BugReportForm />);
 
         const submitButton = screen.getByRole("button", {
@@ -47,7 +49,6 @@ describe("BugReportForm", () => {
     });
 
     test("submits form with valid data", async () => {
-        const user = userEvent.setup();
         mockedAxios.post.mockResolvedValue({
             data: { message: "Bug reported successfully!" },
         });
@@ -82,7 +83,6 @@ describe("BugReportForm", () => {
     });
 
     test("displays success message on successful submission", async () => {
-        const user = userEvent.setup();
         mockedAxios.post.mockResolvedValue({
             data: { message: "Bug reported successfully!" },
         });
@@ -98,7 +98,6 @@ describe("BugReportForm", () => {
     });
 
     test("displays validation errors from backend", async () => {
-        const user = userEvent.setup();
         mockedAxios.post.mockRejectedValue({
             response: {
                 data: {
@@ -126,7 +125,6 @@ describe("BugReportForm", () => {
     });
 
     test("resets form after successful submission", async () => {
-        const user = userEvent.setup();
         mockedAxios.post.mockResolvedValue({
             data: { message: "Bug reported successfully!" },
         });
@@ -153,8 +151,6 @@ describe("BugReportForm", () => {
     });
 
     test("shows loading state during form submission", async () => {
-        const user = userEvent.setup();
-
         mockedAxios.post.mockImplementation(
             () =>
                 new Promise((resolve) =>
@@ -184,7 +180,6 @@ describe("BugReportForm", () => {
     });
 
     test("handles general API errors", async () => {
-        const user = userEvent.setup();
         mockedAxios.post.mockRejectedValue({
             response: {
                 status: 500,
@@ -205,8 +200,6 @@ describe("BugReportForm", () => {
     });
 
     test("clears field errors when user starts typing", async () => {
-        const user = userEvent.setup();
-
         render(<BugReportForm />);
 
         await user.click(screen.getByRole("button", { name: /report bug/i }));
@@ -220,5 +213,25 @@ describe("BugReportForm", () => {
         expect(
             screen.queryByText("Title is required.")
         ).not.toBeInTheDocument();
+    });
+
+    test("success message is removed when user starts typing", async () => {
+        render(<BugReportForm />);
+
+        await user.type(
+            screen.getByLabelText(/title \*/i),
+            "Test success message removal"
+        );
+        await user.click(screen.getByRole("button", { name: /report bug/i }));
+
+        waitFor(() => {
+            expect(screen.getByText("Bug reported!").toBeInTheDocument());
+        });
+
+        await user.type(screen.getByLabelText(/title \*/i), "T");
+
+        waitFor(() => {
+            expect(screen.getByText("Bug reported!").not.toBeInTheDocument());
+        });
     });
 });

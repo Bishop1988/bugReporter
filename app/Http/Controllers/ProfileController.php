@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+// Add below to use Log - the logs will append to storage/logs/laravel.log
+// In terminal check logs - tail -f storage/logs/laravel.log
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -30,6 +33,12 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
+        
+        // inspect the $request
+        // dump($request->all());
+
+        // print $request in logs
+        // Log::info('Request data - Update: ', $request->all());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

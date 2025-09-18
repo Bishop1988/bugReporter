@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+// use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    // Return an Inertia response that tells Laravel to render the React component named Dashboard in  resources/js/Pages/Dashboard.jsx
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

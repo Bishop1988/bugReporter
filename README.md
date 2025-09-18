@@ -86,7 +86,7 @@ npm test
 
 # Run tests in watch mode
 
-npm run test:watch
+npm run test --watchAll
 
 # Run with coverage report
 

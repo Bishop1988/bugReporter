@@ -24,6 +24,10 @@ export default function BugReportForm() {
                 [name]: "",
             }));
         }
+        // Clear the success message when the user starts typing
+        if (successMessage) {
+            setSuccessMessage(false);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -33,6 +37,7 @@ export default function BugReportForm() {
         setSuccessMessage("");
 
         const newErrors = {};
+
         if (!formData.title.trim()) {
             newErrors.title = ["Title is required."];
         }
@@ -93,7 +98,11 @@ export default function BugReportForm() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} data-cy="bug-report-form">
+            <form
+                onSubmit={handleSubmit}
+                aria-label="bug report form"
+                data-cy="bug-report-form"
+            >
                 <div className="mb-4">
                     <label
                         htmlFor="title"
@@ -159,6 +168,15 @@ export default function BugReportForm() {
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
+
+                    {errors.severity && (
+                        <p
+                            className="mt-1 text-sm text-red-600"
+                            data-cy="severity-error"
+                        >
+                            {errors.severity[0]}
+                        </p>
+                    )}
                 </div>
 
                 <button
